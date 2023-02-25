@@ -1,22 +1,20 @@
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
 
-let assetPrefix = "";
-let basePath = "/";
-
-if (isGithubActions) {
+const githubConfig = () => {
+  if (!isGithubActions) return {};
   const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, "");
-
-  assetPrefix = `/${repo}/`;
-  basePath = `/${repo}`;
-}
+  return {
+    assetPrefix: `/${repo}/`,
+    basePath: `/${repo}`,
+  };
+};
 
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: assetPrefix,
-  basePath: basePath,
   images: {
     unoptimized: true,
   },
+  ...githubConfig,
 };
 
 module.exports = nextConfig;
