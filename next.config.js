@@ -1,11 +1,10 @@
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
 
-let assetPrefix = "";
-let basePath = "/";
+let assetPrefix = undefined;
+let basePath = undefined;
 
 if (isGithubActions) {
   const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, "");
-
   assetPrefix = `/${repo}/`;
   basePath = `/${repo}`;
 }
@@ -19,4 +18,14 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
+  },
+  ...nextConfig,
+};
