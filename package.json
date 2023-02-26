@@ -15,7 +15,7 @@
     "prettier:diff": "prettier --check --diff .",
     "lint-staged": "lint-staged",
     "prepare": "husky install",
-    "pre-commit": "next lint"
+    "pre-commit": "next lint --fix && git add -A ."
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
