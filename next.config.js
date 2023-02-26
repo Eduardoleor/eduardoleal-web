@@ -4,7 +4,7 @@ let assetPrefix = undefined;
 let basePath = undefined;
 
 if (isGithubActions) {
-  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, "");
+  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '');
   assetPrefix = `/${repo}/`;
   basePath = `/${repo}`;
 }
@@ -14,18 +14,18 @@ const nextConfig = {
   assetPrefix: assetPrefix,
   basePath: basePath,
   images: {
-    unoptimized: true,
-  },
+    unoptimized: true
+  }
 };
 
 module.exports = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"],
+      use: ['@svgr/webpack']
     });
 
     return config;
   },
-  ...nextConfig,
+  ...nextConfig
 };
